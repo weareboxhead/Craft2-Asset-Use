@@ -1,0 +1,61 @@
+{# Get this asset's id from the post variable #}
+{% set assetId 				= craft.request.getPost('assetId') %}
+
+{# Get this asset #}
+{% set asset 				= craft.assets.id(assetId).first() %}
+
+{# Get all entries #}
+{% set entries 				= craft.entries.status(null) %}
+
+{# Get the id for each entry directly related to this asset #}
+{% set entryIds 			= entries.relatedTo(asset).ids %}
+
+{# Get all the matrix field handles #}
+{% set matrixFieldsHandles 	= craft.assetUse.getAllMatrixFieldsHandles() %}
+
+{# For every matrix field #}
+{% for field in matrixFieldsHandles %}
+	{# Merge the ids of any entry with this asset in this matrix field #}
+	{% set entryIds = entryIds|merge(entries.relatedTo({
+		targetElement: 	asset,
+		field: 			field,
+	}).ids) %}
+{% endfor %}
+
+<table>
+	<thead>
+		<tr>
+			<th>Title</th>
+
+			<th>URI</th>
+
+			<th>Post Date</th>
+
+			<th>Expiry Date</th>
+
+			<th>Edit</th>
+		</tr>
+	</thead>
+
+	<tbody>
+    	{# For every entry we have found  #}
+    	{% for entry in entries.id(entryIds|join(', ')) %}
+    		{% set entryUrl = entry.getUrl() %}
+    		
+	    	<tr>
+	    		<td>{{ entry }}</td>
+
+	    		<td>
+		    		{# If this entry has it's own URL (as defined in Craft's Settings->Sections), print it's URI with the link to the URL #}
+	    			{% if entryUrl %}<a href="{{ entryUrl }}" target="_blank" title="{{ entry }}">{{ entry.uri }}</a>{% endif %}
+    			</td>
+
+	    		<td>{{ entry.postDate|date('d/m/y') }}</td>
+
+	    		<td>{{ entry.expiryDate|date('d/m/y') }}</td>
+
+	    		<td><a href="{{ entry.getCpEditUrl() }}" target="_blank" title="Edit {{ entry }}">Edit</a></td>
+	    	</tr>
+    	{% endfor %}
+	</tbody>
+</table>

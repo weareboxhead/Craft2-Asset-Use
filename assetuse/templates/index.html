@@ -1,0 +1,104 @@
+{% extends "_layouts/cp" %}
+
+{% set title = 'Asset Use' %}
+
+{% set content %}
+	{# Get all assets #}
+	{% set assets 				= craft.assets.limit(null) %}
+
+	{# We're just using images for now #}
+	{% set assets 				= assets.kind('image') %}
+
+	{# Get all entries #}
+	{% set entries 				= craft.entries.status(null).limit(null) %}
+
+	{# Get all the matrix field handles #}
+	{% set matrixFieldsHandles 	= craft.assetUse.getAllMatrixFieldsHandles() %}
+
+	{# Get the ids of any images directly linked to the entries #}
+	{% set relatedAssetsIds 	= assets.relatedTo(entries).ids %}
+
+	{# For every matrix field #}
+	{% for field in matrixFieldsHandles %}
+		{# Merge the ids of any assets which feature in this matrix field #}
+		{% set relatedAssetsIds = relatedAssetsIds|merge(assets.relatedTo({
+			element: 	entries,
+			field: 		field,
+		}).ids) %}
+	{% endfor %}
+
+	{# Subtract the relatedAssetsIds from all assets to get the unrelatedAssets #}
+	{% set unrelatedAssets 		= assets.id('and, not ' ~ relatedAssetsIds|join(', not ')) %}
+
+	{% set unrelatedAssetsL 	= unrelatedAssets|length %}
+
+	<div class="asset-use  js-root" data-site-url="{{ siteUrl }}">
+		<h2>Unused Assets</h2>
+
+		{# If we have some unrelatedAssets #}
+		{% if unrelatedAssetsL %}
+			<div class="toolbar  js-toolbar">
+				<div class="btn  js-toggle-checks">
+					<div class="checkbox  js-toggle-checks-box"></div>
+				</div>
+
+				<div class="options  js-options">
+					<div class="btn  menubtn  js-toggle-options-menu" data-icon="settings"></div>
+
+					<ul class="options--menu  js-options-menu">
+						<li><a class="js-delete-checked" href="#">Delete...</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<table class="js-unused-assets">
+				<thead>
+					<tr>
+						<th class="butt-left"></th>
+
+						<th>Title</th>
+
+						<th>Filename</th>
+
+						<th>Size</th>
+
+						<th>Source</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for asset in unrelatedAssets %}
+						<tr class="js-unused-file" data-file-id="{{ asset.id }}">
+							<td class="checkbox-cell  butt-left">
+								<div class="checkbox  js-asset-check"></div>
+							</td>
+
+							<td>{{ craft.assetUse.getImageThumb(asset) }} {{ asset }}</td>
+
+							<td>{{ asset.filename }}</td>
+
+							<td>{{ craft.assetUse.getFormattedFilesize(asset) }}</td>
+
+							<td>{{ asset.getFolder() }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+			
+		{% if not unrelatedAssetsL %}
+			<p class="js-no-unused-message">There are no unused assets.</p>
+		{% endif %}
+
+		{# If we have some relatedAssetsIds #}
+		{% if relatedAssetsIds|length %}
+			<a class="js-get-used-assets" href="#" data-used-asset-ids="{{ relatedAssetsIds|join(', ') }}">Show used assets</a>
+		{% endif %}
+
+		<div class="js-used-assets-placeholder"></div>
+	</div>
+{% endset %}
+
+{% includeCssResource('assetuse/dist/css/main.css') %}
+
+{% includeJsResource('assetuse/dist/js/main.js') %}

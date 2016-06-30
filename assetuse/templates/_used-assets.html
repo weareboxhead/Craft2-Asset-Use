@@ -1,0 +1,56 @@
+{# Get the used asset ids from the post variable #}
+{% set usedAssetIds 		= craft.request.getPost('usedAssetIds') %}
+
+{# Get the used assets #}
+{% set usedAssets 			= craft.assets.id(usedAssetIds).limit(null) %}
+
+<div>
+	<h2>Used Assets</h2>
+
+	<table>
+		<thead>
+			<tr>
+				<th class="butt-left">Title</th>
+
+				<th>Filename</th>
+
+				<th>Size</th>
+
+				<th>Source</th>
+
+				<th>Entries</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{# For every asset in the usedAssets #}
+			{% for asset in usedAssets %}
+			    <tr>
+				    <td class="butt-left">{{ craft.assetUse.getImageThumb(asset) }} {{ asset }}</td>
+
+				    <td>{{ asset.filename }}</td>
+
+				    <td>{{ craft.assetUse.getFormattedFilesize(asset) }}</td>
+
+				    <td>{{ asset.getFolder() }}</td>
+
+				    <td><a class="js-get-entries" href="#" data-asset-id="{{ asset.id }}" data-asset-title="{{ asset }}">View entries</a></td>
+			    </tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+<div class="ms  js-ms"></div>
+
+<div class="mb  js-mb">
+	<h3 class="js-mb-title"></h3>
+
+	<div class="js-mb-content"></div>
+
+	<div class="mb--footer  cf">
+		<div class="toolbar  toolbar_right-align">
+			<div class="btn  js-close-mb">Close</div>
+		</div>
+	</div>
+</div>

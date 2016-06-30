@@ -1,0 +1,158 @@
+.asset-use *,
+.asset-use *:before,
+.asset-use *:after {
+  box-sizing: border-box;
+}
+
+.asset-use .cf:before,
+.asset-use .cf:after {
+  content: " ";
+  display: table;
+}
+
+.asset-use .cf:after {
+  clear: both;
+}
+
+.asset-use table {
+  width: 100%;
+  margin: 0 auto 2rem;
+}
+
+.asset-use tr {
+  outline: none;
+}
+
+.asset-use th, .asset-use td {
+  padding: 5px 0 5px 14px;
+  border-bottom: 1px dotted rgba(115, 127, 140, 0.15);
+}
+
+.asset-use input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.asset-use .thumb {
+  vertical-align: middle;
+  margin-right: 6px;
+  border-radius: 3px;
+}
+
+.asset-use .checkbox-cell {
+  padding-left: 0;
+  width: 0.01%;
+}
+
+.asset-use .butt-left {
+  padding-left: 0;
+}
+
+.asset-use .toolbar {
+  margin: 0 0 28px;
+  min-height: 30px;
+}
+
+.asset-use .toolbar_right-align {
+  float: right;
+}
+
+.asset-use .btn {
+  margin-right: 10px;
+}
+
+.asset-use .btn:last-child {
+  margin-right: 0;
+}
+
+.asset-use .options {
+  display: none;
+  position: relative;
+}
+
+.asset-use .options--menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding: 4px 0;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 3px;
+}
+
+.asset-use .options--menu a {
+  display: block;
+  padding: 3px 14px;
+}
+
+.asset-use .options--menu a, .asset-use .options--menu a:link, .asset-use .options--menu a:visited {
+  color: inherit;
+}
+
+.asset-use .options--menu a:hover, .asset-use .options--menu a:focus, .asset-use .options--menu a:active {
+  background: #d5d8dd;
+  text-decoration: none;
+}
+
+.asset-use .options.show {
+  display: inline-block;
+}
+
+.asset-use .ms {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.asset-use .mb {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  padding: 3rem 0 0;
+  width: 66%;
+  height: 66%;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 10px 50px -10px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+}
+
+.asset-use .mb--footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 14px 24px;
+  background-image: -webkit-linear-gradient(#ecedef, #e9eaec);
+  background-image: linear-gradient(#ecedef, #e9eaec);
+}
+
+.asset-use .mb h3 {
+  margin: 0 24px 1.5rem;
+}
+
+.asset-use .mb th:first-child,
+.asset-use .mb td:first-child {
+  padding-left: 24px;
+}
+
+.asset-use .mb th:last-child,
+.asset-use .mb td:last-child {
+  padding-right: 24px;
+}
+
+.asset-use .mb th {
+  white-space: nowrap;
+}
+
+.asset-use .mb td {
+  padding-top: 11px;
+  padding-bottom: 11px;
+}

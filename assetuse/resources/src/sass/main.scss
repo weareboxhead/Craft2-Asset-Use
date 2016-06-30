@@ -1,0 +1,153 @@
+// Let's keep everything contained in here in case there are any class conflicts
+.asset-use {
+	*,
+	*:before,
+	*:after {
+		-webkit-box-sizing: border-box;
+		   -moz-box-sizing: border-box;
+				box-sizing: border-box;
+	}
+
+	.cf:before,
+	.cf:after {
+	    content: " ";	// 1
+	    display: table;	// 2
+	}
+
+	.cf:after { clear: both; }
+
+	table {
+		width: 100%;
+		margin: 0 auto 2rem;
+	}
+
+	tr { outline: none; }
+
+	th, td {
+		padding: 5px 0 5px 14px;
+		border-bottom: 1px dotted rgba(115, 127, 140, 0.15);
+	}
+
+	input[type="checkbox"] { cursor: pointer; }
+
+	.thumb {
+		vertical-align: middle;
+		margin-right: 6px;
+		border-radius: 3px;
+	}
+
+	.checkbox-cell {
+		padding-left: 0;
+		width: 0.01%;
+	}
+
+	.butt-left { padding-left: 0; }
+
+	.toolbar {
+		margin: 0 0 28px;
+		min-height: 30px;
+
+		&_right-align { float: right;}
+	}
+
+	.btn {
+		margin-right: 10px;
+
+		&:last-child { margin-right: 0; }
+	}
+
+	.options {
+		display: none;
+		position: relative;
+	}
+
+	.options {
+		&--menu {
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			padding: 4px 0;
+			border: 1px solid #ccc;
+			background: #fff;
+			border-radius: 3px;
+
+			a {
+				display: block;
+				padding: 3px 14px;
+
+				&,
+				&:link,
+				&:visited { color: inherit; }
+
+				&:hover,
+				&:focus,
+				&:active {
+					background: #d5d8dd;
+					text-decoration: none;
+				}
+			}
+		}
+
+		&.show { display: inline-block; }
+	}
+
+	.ms {
+		display: none;
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background: rgba(255,255,255,0.75);
+	}
+
+	.mb {
+		display: none;
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		margin: auto;
+		padding: 3rem 0 0;
+		width: 66%;
+		height: 66%;
+		background: #fff;
+		-webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 10px 50px -10px rgba(0, 0, 0, 0.25);
+	    -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 10px 50px -10px rgba(0, 0, 0, 0.25);
+	    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 10px 50px -10px rgba(0, 0, 0, 0.25);
+		border-radius: 3px;
+
+		&--footer {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			padding: 14px 24px;
+			background-image: -webkit-linear-gradient(#ecedef, #e9eaec);
+			background-image: -moz-linear-gradient(#ecedef, #e9eaec);
+			background-image: -ms-linear-gradient(#ecedef, #e9eaec);
+			background-image: -o-linear-gradient(#ecedef, #e9eaec);
+			background-image: linear-gradient(#ecedef, #e9eaec);
+		}
+
+		h3 {
+			margin: 0 24px 1.5rem;
+		}
+
+		th,
+		td {
+			&:first-child { padding-left: 24px; }
+
+			&:last-child { padding-right: 24px; }
+		}
+
+		th { white-space: nowrap; }
+
+		td {
+			padding-top: 11px;
+			padding-bottom: 11px;
+		}
+	}
+}
